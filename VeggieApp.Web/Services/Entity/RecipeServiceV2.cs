@@ -38,7 +38,7 @@ namespace VeggieApp.Web.Services.Entity
                     ingredient.FamilyId = i.Food.FamilyId;
                     ingredient.Sweetness = i.Food.Sweetness;
                     ingredient.Measurment = i.Metric.Measurment;
-                    ingredient.Quantity = i.Quantity;
+                    //ingredient.Quantity = i.Quantity;
 
                     list.Add(ingredient);
                 }
