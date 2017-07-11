@@ -1,0 +1,219 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styles{
+    <style type="text/css">
+        .ng-hide {
+            transition: 0.5s linear all;
+            opacity: 0;
+        }
+
+        .container.ng-hide {
+            transition: 0.5s linear all;
+            opacity: 0;
+        }
+
+        .col-md-8.ng-hide {
+            transition: 0.5s linear all;
+            opacity: 0;
+        }
+    </style>
+}
+
+<div ng-controller="recipeController as recipeCtrl">
+    <div class="body-content">
+        <div class="row">
+            <h2>Recipes</h2>
+        </div>
+        <div class="row">
+            {{recipeCtrl.message}}
+            <div ng-show="recipeCtrl.displayBodyContent" class="container ng-hide">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <strong>{{recipeCtrl.heading}}</strong>
+                            </div>
+                            <div class="panel-body">
+                                <button type="button"
+                                        class="btn btn-default"
+                                        ng-hide="recipeCtrl.selectedItem"
+                                        ng-click="recipeCtrl.createPerson()">
+                                    Add Person
+                                </button>
+                                <form id="createPersonForm" name="createPersonForm" ng-show="recipeCtrl.selectedItem" class="ng-hide" novalidate>
+                                    <fieldset>
+                                        <div class="row">
+                                            <div class="form-group"
+                                                 ng-class="{'has-error': createPersonForm.FirstName.$invalid && createPersonForm.FirstName.$pristine}">
+                                                <div class="col-md-6 col-sm-6">
+                                                    <label>First Name</label>
+                                                    <input type="text"
+                                                           ng-model="peopleCtrl.selectedItem.FirstName"
+                                                           id="firstName"
+                                                           name="firstName"
+                                                           value=""
+                                                           class="form-control" />
+                                                    <p ng-show="createPersonForm.FirstName.$invalid && createPersonForm.FirstName.$pristine"
+                                                       class="help-block">
+                                                        First Name is required
+                                                    </p>
+
+                                                    <label>Last Name</label>
+                                                    <input type="text"
+                                                           ng-model="peopleCtrl.selectedItem.LastName"
+                                                           id="lastName"
+                                                           name="lastName"
+                                                           value=""
+                                                           class="form-control" />
+                                                    <p ng-show="createPersonForm.LastName.$invalid && createPersonForm.LastName.$pristine"
+                                                       class="help-block">
+                                                        Last Name is required
+                                                    </p>
+
+                                                    <label>Middle Initital</label>
+                                                    <input type="text"
+                                                           ng-model="peopleCtrl.selectedItem.MiddleInitial"
+                                                           id="middleInitial"
+                                                           name="middleInitial"
+                                                           value=""
+                                                           class="form-control" />
+                                                </div>
+                                            </div>
+                                            <span class="col-md-6">
+                                                <button id="cmdCreatePerson" ng-click="peopleCtrl.save()" class="btn btn-default pull-right">
+                                                    Submit
+                                                </button>
+                                            </span>
+                                            <span class="col-md-6">
+                                                <button id="cmdCancelPerson" ng-click="peopleCtrl.cancel()" class="btn btn-default pull-right">
+                                                    Cancel
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-show="recipeCtrl.displayBodyContent" class="col-md-8 ng-hide">
+                        <div id="panel-1" class="panel panel-default">
+                            <div class="panel-heading">
+                                <span class="panel-title">
+                                    <strong>People</strong>
+                                </span>
+                            </div>
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <td>ID</td>
+                                                <td>First Name</td>
+                                                <td>Last Name</td>
+                                                <td>MI</td>
+                                                <td>Actions</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="peopleList">
+                                            <!--Person template pasted here-->
+                                            <tr ng-repeat="item in recipeCtrl.items">
+                                                <td>{{item.Id}}</td>
+                                                <td>{{item.Title}}</td>
+                                                <td>{{item.Description}}</td>
+                                                <td>{{item.AuthorId}}</td>
+                                                <td>
+                                                    <button ng-click="peopleCtrl.openModal(item)" class="btn btn-default btn-xs">Edit</button>
+                                                    <button ng-click="peopleCtrl.deleteUser(item)" class="btn btn-default btn-xs">Delete</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script type="text/html" id="template">
+        <tr>
+            <td class="id"><!--Id--></td>
+            <td class="firstName"><!--FirstName--></td>
+            <td class="lastName"><!--FirstName--></td>
+            <td class="middleInitial"><!--MiddleInitial--></td>
+            <td class="actions">
+                <button class="edit btn btn-default btn-xs">Edit</button>
+                <button class="delete btn btn-default btn-xs">Delete</button>
+            </td>
+        </tr>
+    </script>
+
+
+    <script type="text/ng-template" id="modalContent.html">
+        <div class="card modal-body">
+            <div class="card-content">
+                <div class="container">
+                    <form id="createPersonForm" name="createPersonForm" novalidate>
+                        <fieldset>
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-md-6 col-sm-6">
+                                        <label>First Name</label>
+                                        <input type="text"
+                                               ng-model="mc.data.FirstName"
+                                               id="firstName"
+                                               name="firstName"
+                                               value=""
+                                               class="form-control" />
+                                        <p class="help-block">
+                                            First Name is required
+                                        </p>
+
+                                        <label>Last Name</label>
+                                        <input type="text"
+                                               ng-model="mc.data.LastName"
+                                               id="lastName"
+                                               name="lastName"
+                                               value=""
+                                               class="form-control" />
+                                        <p class="help-block">
+                                            Last Name is required
+                                        </p>
+
+                                        <label>Middle Initital</label>
+                                        <input type="text"
+                                               ng-model="mc.data.MiddleInitial"
+                                               id="middleInitial"
+                                               name="middleInitial"
+                                               value=""
+                                               class="form-control" />
+                                    </div>
+                                </div>
+                                <span class="col-md-6">
+                                    <button id="cmdCreatePerson" ng-click="mc.update()" class="btn btn-default pull-right">
+                                        Update
+                                    </button>
+                                </span>
+                                <span class="col-md-6">
+                                    <button id="cmdCancelPerson" ng-click="mc.cancel()" class="btn btn-default pull-right">
+                                        Cancel
+                                    </button>
+                                </span>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script src="~/Scripts/app/Recipe/RecipeController.js"></script>
+    <script src="~/Scripts/app/Veggie.Services.Recipe.js"></script>
+    <script src="~/Scripts/app/Services/recipe.js"></script>
+}
