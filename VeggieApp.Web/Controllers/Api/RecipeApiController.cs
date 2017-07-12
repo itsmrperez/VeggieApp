@@ -26,15 +26,17 @@ namespace VeggieApp.Web.Controllers.Api
         {
             ItemResponse<Recipes> response = new ItemResponse<Recipes>();
             //response.Item = _recipeService.Get(Id);
-            response.Item = RecipeServiceV2.Get(Id);
+            //response.Item = RecipeServiceV2.Get(Id);
+            response.Item = StoredProc.GetRecipeById(Id);
             return Request.CreateResponse(HttpStatusCode.OK, response);
         }
 
         [Route(), HttpGet]
         public HttpResponseMessage Get()
         {
-            ItemsResponse<Recipe> response = new ItemsResponse<Recipe>();
-            response.Items = _recipeService.Get();
+            ItemsResponse<Recipes> response = new ItemsResponse<Recipes>();
+            //response.Items = _recipeService.Get();
+            response.Items = StoredProc.GetRecipes();
             return Request.CreateResponse(HttpStatusCode.OK, response);
         }
     }

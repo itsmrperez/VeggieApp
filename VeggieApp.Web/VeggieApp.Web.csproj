@@ -48,6 +48,10 @@
       <HintPath>..\packages\DataAnnotationsExtensions.5.0.1.20\lib\NETFramework40\DataAnnotationsExtensions.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.AspNet.EntityDataSource, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.EntityDataSource.6.0.0\lib\net40\Microsoft.AspNet.EntityDataSource.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -310,6 +314,7 @@
     <Compile Include="Models\sp_helpdiagrams_Result.cs">
       <DependentUpon>RecipeModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\StoredProc.cs" />
     <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>RecipeModel.tt</DependentUpon>
     </Compile>
@@ -322,6 +327,13 @@
     <Compile Include="Services\Interfaces\IRecipeService.cs" />
     <Compile Include="Services\RecipeService.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -396,6 +408,7 @@
     <Content Include="Scripts\Angular\angular-animate.min.js.map" />
     <Content Include="Scripts\App\Example.Services.People.js" />
     <Content Include="Scripts\App\Veggie.Services.Recipe.js" />
+    <Content Include="WebForm1.aspx" />
     <EntityDeploy Include="Models\RecipeModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>RecipeModel.Designer.cs</LastGenOutput>

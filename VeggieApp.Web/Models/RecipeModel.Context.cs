@@ -305,5 +305,14 @@ namespace VeggieApp.Web.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
         }
+    
+        public virtual ObjectResult<Recipe_SelectById_Result> Recipe_SelectById1(Nullable<int> recipeId)
+        {
+            var recipeIdParameter = recipeId.HasValue ?
+                new ObjectParameter("RecipeId", recipeId) :
+                new ObjectParameter("RecipeId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Recipe_SelectById_Result>("Recipe_SelectById1", recipeIdParameter);
+        }
     }
 }
