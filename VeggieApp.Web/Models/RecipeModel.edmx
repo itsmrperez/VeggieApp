@@ -745,6 +745,13 @@ warning 6002: The table/view 'Veggies.dbo.Type' does not have a primary key defi
           <FunctionImport Name="Recipe_SelectById1" ReturnType="Collection(VeggiesModel.Recipe_SelectById_Result)">
             <Parameter Name="RecipeId" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="Recipe_Insert1">
+            <Parameter Name="Title" Mode="In" Type="String" />
+            <Parameter Name="Description" Mode="In" Type="String" />
+            <Parameter Name="CategoryId" Mode="In" Type="Int32" />
+            <Parameter Name="AuthorId" Mode="In" Type="String" />
+            <Parameter Name="Id" Mode="InOut" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="Food_SelectAll_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -1076,6 +1083,7 @@ warning 6002: The table/view 'Veggies.dbo.Type' does not have a primary key defi
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Recipe_Insert1" FunctionName="VeggiesModel.Store.Recipe_Insert" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

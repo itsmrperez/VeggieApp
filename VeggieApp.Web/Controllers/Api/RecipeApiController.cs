@@ -39,5 +39,21 @@ namespace VeggieApp.Web.Controllers.Api
             response.Items = StoredProc.GetRecipes();
             return Request.CreateResponse(HttpStatusCode.OK, response);
         }
+
+        [Route(), HttpPost]
+        public HttpResponseMessage Insert(Recipe model)
+        {
+            ItemResponse<int> response = new ItemResponse<int>();
+            response.Item = StoredProc.AddV2(model);
+            return Request.CreateResponse(HttpStatusCode.OK, response);
+        }
+
+        [Route(), HttpPut]
+        public HttpResponseMessage Update(Recipe model)
+        {
+            StoredProc update = new StoredProc();
+            update.Update(model);
+            return Request.CreateResponse(HttpStatusCode.OK, new SuccessResponse());
+        }
     }
 }

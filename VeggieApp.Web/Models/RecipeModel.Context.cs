@@ -314,5 +314,26 @@ namespace VeggieApp.Web.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Recipe_SelectById_Result>("Recipe_SelectById1", recipeIdParameter);
         }
+    
+        public virtual int Recipe_Insert1(string title, string description, Nullable<int> categoryId, string authorId, ObjectParameter id)
+        {
+            var titleParameter = title != null ?
+                new ObjectParameter("Title", title) :
+                new ObjectParameter("Title", typeof(string));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("Description", description) :
+                new ObjectParameter("Description", typeof(string));
+    
+            var categoryIdParameter = categoryId.HasValue ?
+                new ObjectParameter("CategoryId", categoryId) :
+                new ObjectParameter("CategoryId", typeof(int));
+    
+            var authorIdParameter = authorId != null ?
+                new ObjectParameter("AuthorId", authorId) :
+                new ObjectParameter("AuthorId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Recipe_Insert1", titleParameter, descriptionParameter, categoryIdParameter, authorIdParameter, id);
+        }
     }
 }
